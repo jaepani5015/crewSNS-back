@@ -11,7 +11,7 @@
 
 ## 2021.01.13
 ### DB수정, Prisma ORM 테스트 연결
-- Prisma를 설계한 DB와 연결을 해보았는데 오류가 발생하여 확인해보니 `image`테이블과 `reply`테이블 기본값이 없다고 오류가 발생되었다. 그래서 `image reply`테이블에 기본키를 추가하였다. 또한 
+- Prisma를 설계한 DB와 연결을 해보았는데 오류가 발생하여 확인해보니 `image`테이블과 `reply`테이블 기본값이 없다고 오류가 발생되었다. 그래서 `image reply`테이블에 기본키를 추가하였다. 또한 `post reply image`에 `NOT NULL`도 추가하였다.
 - 다음 작업으로는 Prisma와 MySQL를 연결하는 작업을 하였고 몇 가지 명령어들을 통해서 쉽게 연결할 수 있었다.
 > `npm install @prisma/cli --save-dev`\
 > `npx prisma`\
