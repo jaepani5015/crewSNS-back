@@ -1,0 +1,36 @@
+{
+  "name": "crewsns-back",
+  "version": "1.0.0",
+  "description": "---\r ## 2021.01.12\r ### crewSNS DB설계 작업\r - ERD 설계 이미지\r ![crewSNS ERD](./readmeFile/crewSNS_ERD.png)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaePaNi/crewSNS-back.git"
+  },
+  "author": "JaePaNi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JaePaNi/crewSNS-back/issues"
+  },
+  "homepage": "https://github.com/JaePaNi/crewSNS-back#readme",
+  "dependencies": {
+    "@prisma/cli": "^2.14.0",
+    "@prisma/client": "^2.14.0",
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.0",
+    "cookie-parse": "^0.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "helmet": "^4.4.1",
+    "hpp": "^0.2.3",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  }
+}
