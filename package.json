@@ -4,7 +4,8 @@
   "description": "---\r ## 2021.01.12\r ### crewSNS DB설계 작업\r - ERD 설계 이미지\r ![crewSNS ERD](./readmeFile/crewSNS_ERD.png)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./server/index.js"
   },
   "repository": {
     "type": "git",
@@ -32,5 +33,8 @@
     "multer": "^1.4.2",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
