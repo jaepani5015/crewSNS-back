@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model image {
+  image_id     Int    @id @default(autoincrement())
+  image_link   String
+  image_author Int
+  post         post   @relation(fields: [image_author], references: [post_id])
+
+  @@index([image_author], name: "image_author")
+}
+
+model post {
+  post_id         Int      @id @default(autoincrement())
+  post_title      String
+  post_content    String?
+  post_createdate DateTime @default(now())
+  post_author     String
+  user            user     @relation(fields: [post_author], references: [user_id])
+  image           image[]
+  reply           reply[]
+
+  @@index([post_author], name: "post_author")
+}
+
+model reply {
+  reply_id          Int      @id @default(autoincrement())
+  reply_content     String
+  reply_createdate  DateTime @default(now())
+  reply_post_author Int
+  reply_user_author String
+  post              post     @relation(fields: [reply_post_author], references: [post_id])
+  user              user     @relation(fields: [reply_user_author], references: [user_id])
+
+  @@index([reply_post_author], name: "reply_post_author")
+  @@index([reply_user_author], name: "reply_user_author")
+}
+
+model user {
+  user_id       String  @id
+  user_pw       String
+  user_nickname String? @default("#")
+  post          post[]
+  reply         reply[]
+}
