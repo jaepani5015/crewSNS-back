@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
-const { PrismaClient } = require('@prisma/client');
+const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient();
 
 
@@ -10,27 +11,29 @@ router.get('/', (req, res) => {
 
 });
 
-router.post('/', async (req, res) => {
-    const { id, pw } = req.body;
+router.post('/', async (req, res, next) => {
+    const {id, pw} = req.body;
     try {
-        const inqCheck = await prisma.user.findFirst({
+        const exUser = await prisma.user.findFirst({
             where: {
                 user_id: id,
             }
         });
-        if (inqCheck) {
+        if (exUser) {
             return res.status(403).send('이미 사용중인 계정입니다.');
-        } else {
-            const inqRegist = await prisma.user.create({
-                data: {
-                    user_id: id,
-                    user_pw: pw,
-                }
-            });
-            return res.json(inqRegist);
         }
+        const hashedPassword = await bcrypt.hash(pw, 13);
+        const newUser = await prisma.user.create({
+            data: {
+                user_id: id,
+                user_pw: hashedPassword,
+            }
+        });
+        console.log(newUser);
+        return res.status(200).json(newUser);
     } catch (e) {
         console.error(e);
+        return next(e);
     }
 });
 
