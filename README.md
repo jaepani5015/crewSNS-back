@@ -19,3 +19,13 @@
 > `npx prisma introspect`\
 > `npm install @prisma/client`\
 > `npx prisma generate`
+
+## 2021.01.21
+### 백엔드 구현
+- 사용할 패키지 설치 및 `prisma`에 `AWS RDS`와 연결
+
+- `express` 프레임워크를 사용하였고 요청이 들어올 때 `express Router`로 분리하여 현재 총 2개의 라우터로 구분지었다.
+
+- 백앤드 작업은 회원가입 작업까지 진행하였고, 프론트 서버에서 요청이 들어오면 DB검색은 `prisma`가 담당하도록 구현했다.
+
+- 회원가입시 사용자 비밀번호는 `bcrypt`를 사용하여 암호화 시켜 저장했다.
