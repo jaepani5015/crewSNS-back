@@ -6,7 +6,6 @@ const passport = require('passport');
 const router = express.Router();
 const prisma = new PrismaClient();
 
-// 사용자 부분
 router.get('/', (req, res) => {
 
 });
@@ -36,20 +35,19 @@ router.post('/', async (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
+    // 로그인 처리 시 cookie와 session을 동시에 작업해줄 passport기능 사용
     passport.authenticate('local', (err, user, info) => {
-        console.log('authenticate:: ', 'err : ', err, 'user : ', user, 'info : ', info);
         if (err) {
             console.error(err);
             return next(err);
         }
 
-        if (info) return res.status(401).send(info.reason);
+        if (info) return res.status(401).json(info.reason);
 
         return req.login(user, (loginErr) => {
             if (loginErr) return next(loginErr);
             const filterdUser = Object.assign({}, user);
-            delete filterdUser.password;
-            console.log('hi_3', filterdUser);
+            delete filterdUser.user_pw;
             return res.json(filterdUser);
         });
     })(req, res, next)

@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 const local = require('./local');
 
 module.exports = () => {
-    passport.serializeUser((user, done) => { return done(null, user.id); });
+    passport.serializeUser((user, done) => { return done(null, user.user_id); });
     passport.deserializeUser(async (id, done) => {
         try {
             const user = await prisma.user.findFirst({
@@ -18,4 +18,4 @@ module.exports = () => {
         }
     });
     local();
-}
+} 
