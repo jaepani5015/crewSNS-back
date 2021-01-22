@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://admin:jaehwan0917@crewsns.ciixdsp42wrb.us-east-2.rds.amazonaws.com:3306/crewsns"
+  url      = env("AWS_RDS_URL")
 }
 
 model image {
