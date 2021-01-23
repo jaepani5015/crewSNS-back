@@ -28,7 +28,8 @@ app.use(expressSession({
     cookie: {
         httpOnly: true,
         secure: false,
-    }
+    },
+    name: '!__ cnc',
 }));
 app.use(passport.initialize());
 app.use(passport.session());

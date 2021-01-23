@@ -6,8 +6,15 @@ const passport = require('passport');
 const router = express.Router();
 const prisma = new PrismaClient();
 
+// 쿠키로 로그인 요청을 보내는 API
 router.get('/', (req, res) => {
-
+    // req.user는 deseriallize가 만들어 준다.
+    if (!req.user) {
+        return res.status(401).send('로그인이 필요합니다.');
+    }
+    const user = Object.assign({}, req.user);
+    delete user.user_pw;
+    res.json(user);
 });
 
 router.post('/', async (req, res, next) => {
@@ -54,7 +61,10 @@ router.post('/login', (req, res, next) => {
 });
 
 router.post('/logout', (req, res) => {
-
+    console.dir(`logout :: ${req.session}`, { depth: 4 });
+    req.logout();
+    req.session.destroy();
+    res.send('로그아웃 성공');
 });
 
 router.patch('/:id/userModify', (req, res) => {
