@@ -8,8 +8,24 @@ const path = require('path');
 const moment = require('moment');
 
 // 포스트 부분
-router.get('/postCall', (req, res) => {
-
+router.get('/postCall', async (req, res) => {
+    try {
+        const callPost = await prisma.post.findMany({
+            orderBy: {
+                post_id: 'desc'
+            }
+        });
+        const callImage = await prisma.image.findMany({});
+        const callReply = await prisma.reply.findMany({});
+        return res.json({
+            content: callPost,
+            image: callImage,
+            reply: callReply,
+        });
+    } catch (e) {
+        console.error(e);
+        res.status(401).send('포스트 조회 실패');
+    }
 });
 
 const upload = multer({
@@ -86,8 +102,29 @@ router.delete('/:id/postDelete', (req, res) => {
 
 });
 
-router.post('/:id/postReply', (req, res) => {
-
+router.post('/:id/postReply', async (req, res, next) => {
+    const { replyContent, userId } = req.body;
+    const time = moment().format('llll');
+    console.log(req.params.id);
+    try {
+        const createReply = await prisma.reply.create({
+            data: {
+                reply_content: replyContent,
+                reply_createdate: time,
+                user: {
+                    connect: { user_id: userId }
+                },
+                post: {
+                    connect: { post_id: parseInt(req.params.id) }
+                }
+            }
+        });
+        console.log(createReply);
+        res.json(createReply);
+    } catch (e) {
+        console.error(e);
+        next(e);
+    }
 });
 
 router.delete('/:id/postDeleteReply', (req, res) => {

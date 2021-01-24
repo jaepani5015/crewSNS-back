@@ -30,13 +30,13 @@ model post {
 }
 
 model reply {
-  reply_id          Int      @id @default(autoincrement())
+  reply_id          Int    @id @default(autoincrement())
   reply_content     String
-  reply_createdate  DateTime @default(now())
+  reply_createdate  String
   reply_post_author Int
   reply_user_author String
-  post              post     @relation(fields: [reply_post_author], references: [post_id])
-  user              user     @relation(fields: [reply_user_author], references: [user_id])
+  post              post   @relation(fields: [reply_post_author], references: [post_id])
+  user              user   @relation(fields: [reply_user_author], references: [user_id])
 
   @@index([reply_post_author], name: "reply_post_author")
   @@index([reply_user_author], name: "reply_user_author")
