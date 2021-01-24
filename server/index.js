@@ -1,20 +1,24 @@
 const express = require('express');
-const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const dotenv = require('dotenv');
 const passport = require('passport');
+// const multer = require('multer');
+const path = require('path');
 
 const passportConfig = require('./passport');
 const userApiRouter = require('./routes/user');
 const postApiRouter = require('./routes/post');
 
+const app = express();
+
 dotenv.config();
 passportConfig();
 app.use(morgan('dev'));
 app.use(express.json());
+app.use('/', express.static('upload'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -33,6 +37,7 @@ app.use(expressSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+// app.use(multer({ dest: path.join(__dirname, 'img/') }));
 
 app.use('/user', userApiRouter);
 app.use('/post', postApiRouter);

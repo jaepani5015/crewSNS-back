@@ -61,7 +61,6 @@ router.post('/login', (req, res, next) => {
 });
 
 router.post('/logout', (req, res) => {
-    console.dir(`logout :: ${req.session}`, { depth: 4 });
     req.logout();
     req.session.destroy();
     res.send('로그아웃 성공');
