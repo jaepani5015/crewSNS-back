@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("LOCAL_MYSQL")
+  url      = env("DM_MYSQL_LOCAL")
 }
 
 model image {
@@ -20,7 +20,7 @@ model post {
   post_id         Int     @id @default(autoincrement())
   post_title      String
   post_content    String?
-  post_createdate String  @default("")
+  post_createdate String
   post_author     String
   user            user    @relation(fields: [post_author], references: [user_id])
   image           image[]

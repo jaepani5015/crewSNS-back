@@ -12,11 +12,16 @@ router.get('/postCall', async (req, res) => {
     try {
         const callPost = await prisma.post.findMany({
             orderBy: {
-                post_id: 'desc'
-            }
+                // post_id: 'desc'
+                post_createdate: 'desc',
+            },
         });
-        const callImage = await prisma.image.findMany({});
-        const callReply = await prisma.reply.findMany({});
+        const callImage = await prisma.image.findMany({
+
+        });
+        const callReply = await prisma.reply.findMany({
+
+        });
         return res.json({
             content: callPost,
             image: callImage,
@@ -36,6 +41,7 @@ const upload = multer({
         filename(req, file, cb) {
             const ext = path.extname(file.originalname);
             const basename = path.basename(file.originalname, ext);
+            console.log(`ext :: ${ext} /// basename :: ${basename} /// fullname :: ${basename + new Date().valueOf() + ext}`);
             cb(null, basename + new Date().valueOf() + ext);
         }
     }),
