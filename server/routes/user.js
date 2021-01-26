@@ -1,9 +1,8 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
-const { PrismaClient } = require('@prisma/client');
-const passport = require('passport');
-
 const router = express.Router();
+const bcrypt = require('bcrypt');
+const passport = require('passport');
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 // 쿠키로 로그인 요청을 보내는 API

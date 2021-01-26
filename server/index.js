@@ -5,8 +5,6 @@ const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const dotenv = require('dotenv');
 const passport = require('passport');
-// const multer = require('multer');
-const path = require('path');
 
 const passportConfig = require('./passport');
 const userApiRouter = require('./routes/user');
@@ -37,7 +35,6 @@ app.use(expressSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(multer({ dest: path.join(__dirname, 'img/') }));
 
 app.use('/user', userApiRouter);
 app.use('/post', postApiRouter);
