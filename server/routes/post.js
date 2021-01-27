@@ -109,7 +109,7 @@ router.post('/postCreate', upload.none(), async (req, res, next) => {
             await req.body.images.map(async (data) => {
                 await prisma.image.create({
                     data: {
-                        image_link: process.env.IMAGE_BASEURL + data,
+                        image_link: data,
                         post: {
                             connect: { post_id: createPostTitleContent.post_id }
                         }
@@ -120,7 +120,7 @@ router.post('/postCreate', upload.none(), async (req, res, next) => {
             if (req.body.images !== undefined) {
                 await prisma.image.create({
                     data: {
-                        image_link: process.env.IMAGE_BASEURL + req.body.images,
+                        image_link: req.body.images,
                         post: {
                             connect: { post_id: createPostTitleContent.post_id }
                         }
