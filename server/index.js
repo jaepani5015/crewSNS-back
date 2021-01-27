@@ -19,8 +19,8 @@ app.use(express.json());
 app.use('/', express.static('upload'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true,
+	origin: 'http://www.crews.co.kr',
+	credentials: true,
 }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(expressSession({
@@ -30,6 +30,8 @@ app.use(expressSession({
     cookie: {
         httpOnly: true,
         secure: false,
+	domain: '.ec2-3-36-122-114.ap-northeast-2.compute.amazonaws.com',
+	path: '/',
     },
     name: '!__ cnc',
 }));
@@ -39,6 +41,6 @@ app.use(passport.session());
 app.use('/user', userApiRouter);
 app.use('/post', postApiRouter);
 
-app.listen(5000, () => {
-    console.log('server is running on 5000');
+app.listen(3000, () => {
+    console.log('server is running on 3000');
 });

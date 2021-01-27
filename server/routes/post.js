@@ -73,6 +73,7 @@ router.get('/postCall', async (req, res) => {
                 }
             });
 
+/*
             if (callImage.length !== 0) {
                 return res.json({
                     content: callPost,
@@ -80,10 +81,16 @@ router.get('/postCall', async (req, res) => {
                     reply: callReply,
                 });
             }
-        }
+	    */
+		return res.json({
+			content: callPost,
+			image: callImage,
+			reply: callReply,
+		});
+        } else console.log('포스트 조회 실패');
     } catch (e) {
         console.error(e);
-        res.status(401).send('포스트 조회 실패');
+        res.status(401).send('포스트 리스트 조회 실패');
     }
 });
 
@@ -109,7 +116,7 @@ router.post('/postCreate', upload.none(), async (req, res, next) => {
             await req.body.images.map(async (data) => {
                 await prisma.image.create({
                     data: {
-                        image_link: process.env.IMAGE_BASEURL + data,
+                        image_link: data,
                         post: {
                             connect: { post_id: createPostTitleContent.post_id }
                         }
@@ -120,7 +127,7 @@ router.post('/postCreate', upload.none(), async (req, res, next) => {
             if (req.body.images !== undefined) {
                 await prisma.image.create({
                     data: {
-                        image_link: process.env.IMAGE_BASEURL + req.body.images,
+                        image_link: req.body.images,
                         post: {
                             connect: { post_id: createPostTitleContent.post_id }
                         }
@@ -137,7 +144,7 @@ router.post('/postCreate', upload.none(), async (req, res, next) => {
 
 router.post('/postImages', upload.array('image'), (req, res) => {
     console.log('req.files :::', req.files);
-    res.json(req.files.map(v => v.filename));
+    res.json(req.files.map(v => v.location));
 });
 
 // id는 req.params.id로 가져올 수 있다.
