@@ -45,7 +45,7 @@ router.post('/login', (req, res, next) => {
     // 로그인 처리 시 cookie와 session을 동시에 작업해줄 passport기능 사용
     passport.authenticate('local', (err, user, info) => {
         if (err) {
-            console.error(err);
+            console.error(err); 
             return next(err);
         }
 
