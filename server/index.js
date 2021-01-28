@@ -19,7 +19,7 @@ app.use(express.json());
 app.use('/', express.static('upload'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-	origin: 'http://www.crews.co.kr',
+	origin: true,
 	credentials: true,
 }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -41,6 +41,6 @@ app.use(passport.session());
 app.use('/user', userApiRouter);
 app.use('/post', postApiRouter);
 
-app.listen(3000, () => {
-    console.log('server is running on 3000');
+app.listen(5000, () => {
+    console.log('server is running');
 });

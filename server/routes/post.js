@@ -28,20 +28,22 @@ const upload = multer({
 });
 
 /* 로컬 스토리지에 업로드 할 때 multer */
-// const upload = multer({
-//     storage: multer.diskStorage({
-//         destination(req, file, cb) {
-//             cb(null, 'upload')
-//         },
-//         filename(req, file, cb) {
-//             const ext = path.extname(file.originalname);
-//             const basename = path.basename(file.originalname, ext);
-//             console.log(`ext :: ${ext} /// basename :: ${basename} /// fullname :: ${basename + new Date().valueOf() + ext}`);
-//             cb(null, basename + new Date().valueOf() + ext);
-//         }
-//     }),
-//     limits: { fileSize: 20 * 1024 * 1024 },
-// });
+/*
+const upload = multer({
+    storage: multer.diskStorage({
+        destination(req, file, cb) {
+            cb(null, 'upload')
+        },
+        filename(req, file, cb) {
+            const ext = path.extname(file.originalname);
+            const basename = path.basename(file.originalname, ext);
+            console.log(`ext :: ${ext} /// basename :: ${basename} /// fullname :: ${basename + new Date().valueOf() + ext}`);
+            cb(null, basename + new Date().valueOf() + ext);
+        }
+    }),
+    limits: { fileSize: 20 * 1024 * 1024 },
+});
+*/
 
 // 포스트 부분
 router.get('/postCall', async (req, res) => {
@@ -73,7 +75,6 @@ router.get('/postCall', async (req, res) => {
                 }
             });
 
-/*
             if (callImage.length !== 0) {
                 return res.json({
                     content: callPost,
@@ -81,12 +82,11 @@ router.get('/postCall', async (req, res) => {
                     reply: callReply,
                 });
             }
-	    */
-		return res.json({
-			content: callPost,
-			image: callImage,
-			reply: callReply,
-		});
+            return res.json({
+                content: callPost,
+                image: callImage,
+                reply: callReply,
+            });
         } else console.log('포스트 조회 실패');
     } catch (e) {
         console.error(e);
@@ -143,7 +143,7 @@ router.post('/postCreate', upload.none(), async (req, res, next) => {
 });
 
 router.post('/postImages', upload.array('image'), (req, res) => {
-    console.log('req.files :::', req.files);
+    // console.log('req.files :::', req.files);
     res.json(req.files.map(v => v.location));
 });
 
